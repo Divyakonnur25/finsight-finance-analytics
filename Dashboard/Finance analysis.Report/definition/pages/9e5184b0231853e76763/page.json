@@ -1,0 +1,99 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "9e5184b0231853e76763",
+  "displayName": "Overview Analysis",
+  "displayOption": "FitToPage",
+  "height": 980,
+  "width": 1800,
+  "objects": {
+    "displayArea": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F7FB'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "59c7e20849564725f3fb",
+      "target": "7b589316297d6017416a",
+      "type": "DataFilter"
+    },
+    {
+      "source": "59c7e20849564725f3fb",
+      "target": "afcf6f956490be8bf4cf",
+      "type": "DataFilter"
+    },
+    {
+      "source": "59c7e20849564725f3fb",
+      "target": "75086a76c8aec6393bad",
+      "type": "DataFilter"
+    },
+    {
+      "source": "59c7e20849564725f3fb",
+      "target": "ec880a8cfeb31e440923",
+      "type": "DataFilter"
+    },
+    {
+      "source": "59c7e20849564725f3fb",
+      "target": "14fb40025671d9c2c90c",
+      "type": "DataFilter"
+    },
+    {
+      "source": "14fb40025671d9c2c90c",
+      "target": "afcf6f956490be8bf4cf",
+      "type": "DataFilter"
+    },
+    {
+      "source": "14fb40025671d9c2c90c",
+      "target": "7b589316297d6017416a",
+      "type": "DataFilter"
+    },
+    {
+      "source": "14fb40025671d9c2c90c",
+      "target": "59c7e20849564725f3fb",
+      "type": "DataFilter"
+    },
+    {
+      "source": "14fb40025671d9c2c90c",
+      "target": "75086a76c8aec6393bad",
+      "type": "DataFilter"
+    },
+    {
+      "source": "14fb40025671d9c2c90c",
+      "target": "ec880a8cfeb31e440923",
+      "type": "DataFilter"
+    }
+  ]
+}

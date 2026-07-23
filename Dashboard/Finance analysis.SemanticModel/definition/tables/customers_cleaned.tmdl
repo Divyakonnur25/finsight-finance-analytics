@@ -1,0 +1,116 @@
+table customers_cleaned
+	lineageTag: 487b71ff-cdb1-4ef4-9732-2c8dd0fea0a6
+
+	column customer_id
+		dataType: string
+		lineageTag: 3b754071-1749-4866-9523-490664ea8b25
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: dff2defd-b621-4763-a50d-0ee720686cec
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_of_birth
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bf37209d-e1c3-4889-b4cf-6df62a05b4da
+		summarizeBy: none
+		sourceColumn: date_of_birth
+
+		variation Variation
+			isDefault
+			relationship: e196cda0-fc2a-4b78-9ce3-e6d2f44b2c29
+			defaultHierarchy: LocalDateTable_9d0f5cb7-8c94-4c89-bfc8-7944be989199.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column city
+		dataType: string
+		lineageTag: 8ed1fc61-cd9a-4280-9357-98ab684602cc
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: 1cea3359-6b73-4722-ab6e-1f6b1fdfea84
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column occupation
+		dataType: string
+		lineageTag: c5c76da1-6755-491a-be57-1ed9ee5302ae
+		summarizeBy: none
+		sourceColumn: occupation
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_segment
+		dataType: string
+		lineageTag: e5dabc14-661c-4844-b83e-3729ef85215c
+		summarizeBy: none
+		sourceColumn: customer_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_income
+		dataType: double
+		lineageTag: ae554335-0dfb-4999-8f0d-c20b65c333a3
+		summarizeBy: sum
+		sourceColumn: annual_income
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column join_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1a2eb0f9-eb20-45ba-bd0e-560594921e90
+		summarizeBy: none
+		sourceColumn: join_date
+
+		variation Variation
+			isDefault
+			relationship: 78a170b4-4801-4cf7-94b5-bbbeb03bfdf6
+			defaultHierarchy: LocalDateTable_2400dc63-bb5b-4e23-8aa7-a312435f32a5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column full_name
+		dataType: string
+		lineageTag: 2ce31e2d-5582-4969-8df0-49958db50939
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customers_cleaned = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\kk\Desktop\Data Science\EDA\customers_cleaned.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"customer_id", type text}, {"fisrt_name", type text}, {"second_name", type text}, {"gender", type text}, {"date_of_birth", type date}, {"city", type text}, {"state", type text}, {"occupation", type text}, {"customer_segment", type text}, {"annual_income", type number}, {"join_date", type date}}),
+				    #"Merged Columns" = Table.CombineColumns(#"Changed Type",{"fisrt_name", "second_name"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"full_name")
+				in
+				    #"Merged Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

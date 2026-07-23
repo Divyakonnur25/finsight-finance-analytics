@@ -1,0 +1,202 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "13905575f948b28f44ab",
+  "displayName": "Transactions",
+  "displayOption": "FitToPage",
+  "height": 980,
+  "width": 1800,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "70d9f8f870c6f3d78efd",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Amount"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "7c8b4e4c1f95b0d3105c",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Tax"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "fbc834284cbda27a1bda",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Transactions"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "0d737e70128567fa0c4e",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Fees"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      },
+      {
+        "name": "53fd8a17d7d46a29529b",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Avg Transaction Value"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "987a8ea009838954323c",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "7ecda01a672ec7c3a581",
+        "boundFilter": "70d9f8f870c6f3d78efd",
+        "fieldExpr": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Amount"
+          }
+        }
+      },
+      {
+        "name": "754ae4c804967cee8550",
+        "boundFilter": "7c8b4e4c1f95b0d3105c",
+        "fieldExpr": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Tax"
+          }
+        }
+      },
+      {
+        "name": "1fb0a93eb52598c104d7",
+        "boundFilter": "fbc834284cbda27a1bda",
+        "fieldExpr": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Transactions"
+          }
+        }
+      },
+      {
+        "name": "5b8a15f73ec728cf9219",
+        "boundFilter": "0d737e70128567fa0c4e",
+        "fieldExpr": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Total Fees"
+          }
+        }
+      },
+      {
+        "name": "dfd76099896b6c1bbe20",
+        "boundFilter": "53fd8a17d7d46a29529b",
+        "fieldExpr": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "finance_transactions_cleaned"
+              }
+            },
+            "Property": "Avg Transaction Value"
+          }
+        }
+      }
+    ]
+  },
+  "objects": {
+    "displayArea": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Middle'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F5F7FB'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

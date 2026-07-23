@@ -1,0 +1,254 @@
+table finance_transactions_cleaned
+	lineageTag: 6a4e9218-63eb-4e42-bf38-645c7679d685
+
+	measure 'Total Amount' = sum(finance_transactions_cleaned[amount])
+		formatString: "₹"\ #,0.00;#,0.00\ -"₹";"₹"\ #,0.00
+		lineageTag: 045a8451-3601-4e61-a9b4-e7557d2c9b82
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure 'PY Amount' = CALCULATE([Total Amount],SAMEPERIODLASTYEAR('calendra table'[Date]))
+		lineageTag: b3571311-d437-42f3-9fce-7c70790484e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Amount' = ([Total Amount]-[PY Amount])
+		lineageTag: 21bb3c26-8a64-4a66-a715-22c726478970
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Amount' = DIVIDE([YoY Amount],[PY Amount])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 068eebd2-8095-4e8f-b457-02004b9929b2
+
+	measure 'Total Transactions' = DISTINCTCOUNT(finance_transactions_cleaned[transaction_id])
+		formatString: #,0
+		lineageTag: 7354b332-368f-4022-a7bf-0a0a60433162
+
+	measure 'PY Transaction' = CALCULATE([Total Transactions],SAMEPERIODLASTYEAR('calendra table'[Date]))
+		formatString: 0
+		lineageTag: a387eb9b-aa65-47b1-a7fa-5349e8004dc7
+
+	measure 'YoY Transactions' = ([Total Transactions]-[PY Transaction])
+		formatString: 0
+		lineageTag: e98a8cb6-73f7-4b65-91bd-939413362a7e
+
+	measure 'YoY % Transactions' = DIVIDE([YoY Transactions],[PY Transaction])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 59d20384-c621-4a75-b4db-45aa1dd63ef5
+
+	measure 'Avg Transaction Value' = ```
+			AVERAGE(finance_transactions_cleaned[amount]) 
+			```
+		formatString: "₹"\ #,0.00;#,0.00\ -"₹";"₹"\ #,0.00
+		lineageTag: 185ff810-ae53-4705-8449-19553aa9e67d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure 'PY Avg Transaction' = CALCULATE([Avg Transaction Value],SAMEPERIODLASTYEAR('calendra table'[Date]))
+		lineageTag: 9d9380a7-0f72-4573-b81e-ecdf4f843b23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Avg Transactions' = ([Avg Transaction Value]-[PY Avg Transaction])
+		lineageTag: f1d9d04f-8db4-4f79-a4f2-dd94cc10fcaf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Avg Transactions' = DIVIDE([YoY Avg Transactions],[PY Avg Transaction])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ced1b912-e5df-4227-b6ea-5bfcce7acb89
+
+	measure 'Total Fees' = sum(finance_transactions_cleaned[fee_amount])
+		formatString: "₹"\ #,0.00;#,0.00\ -"₹";"₹"\ #,0.00
+		lineageTag: 9dabf021-8261-463a-b195-dadbe80c8d88
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure 'PY Fees' = CALCULATE([Total Fees],SAMEPERIODLASTYEAR('calendra table'[Date]))
+		lineageTag: 849b096d-c20d-454c-9a0f-bbdb7d5d4224
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Fees' = ([Total Fees]-[PY Fees])
+		lineageTag: 901aaa54-a9ba-4ee4-9e77-090e053a03d7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Fees' = DIVIDE([YoY Fees],[PY Fees])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 8a9a0453-071d-42ce-bea9-164d3463bb81
+
+	measure 'Total Tax' = sum(finance_transactions_cleaned[tax_amount])
+		formatString: "₹"\ #,0.00;#,0.00\ -"₹";"₹"\ #,0.00
+		lineageTag: d5e05720-0906-45ba-bbb5-676e3258333d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure 'PY Tax' = CALCULATE([Total Tax],SAMEPERIODLASTYEAR('calendra table'[Date]))
+		lineageTag: a6c157b1-7832-4b83-b097-802ed9bbc0aa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Tax' = ([Total Tax]-[PY Tax])
+		lineageTag: dd50eb20-3aa4-4c81-9fa5-9b9ac1546ec7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY % Tax' = DIVIDE([YoY Tax],[PY Tax])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ed046c1f-0897-4dce-a205-5ecc38377578
+
+	measure 'selected year' = SELECTEDVALUE('calendra table'[year])
+		formatString: 0
+		lineageTag: 0355c9c9-3bb6-45b2-a1b7-640f18712a03
+
+	measure 'selected Dynamic meassure' = SELECTEDVALUE('Dynamic metrics'[Dynamic Title])
+		lineageTag: 3a1a89db-47ed-4e83-ae7d-220168d51d4a
+
+	column transaction_id
+		dataType: string
+		lineageTag: e61114f3-228d-4f65-8b71-0db6ecea1e67
+		summarizeBy: none
+		sourceColumn: transaction_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bebe2d6c-6ae6-428e-81b6-bc5cf524c061
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column account_id
+		dataType: string
+		lineageTag: 0122e6f0-d9e8-4f29-8207-6789cc40bdd2
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 8a2b84bb-4219-4c2c-bff5-5f751b0be5f9
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_type
+		dataType: string
+		lineageTag: 64ac6e5f-8dbd-439d-9e9b-530550d0a430
+		summarizeBy: none
+		sourceColumn: transaction_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column channel
+		dataType: string
+		lineageTag: 1ab30df6-1473-4258-957c-4c82a8ba6d20
+		summarizeBy: none
+		sourceColumn: channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column merchant_category
+		dataType: string
+		lineageTag: 739b66ce-54d3-4f9c-a78d-555f3d89c32c
+		summarizeBy: none
+		sourceColumn: merchant_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: double
+		lineageTag: 8459bcd6-d53c-436f-8eca-edc83686953f
+		summarizeBy: sum
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fee_amount
+		dataType: double
+		lineageTag: 3e89a826-eeb7-4611-8e8d-5aa20492f7d8
+		summarizeBy: sum
+		sourceColumn: fee_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tax_amount
+		dataType: double
+		lineageTag: 15b4e75c-a743-418a-a6cb-44c2f14b7fb2
+		summarizeBy: sum
+		sourceColumn: tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column currency
+		dataType: string
+		lineageTag: 1ae6b5f5-8073-450c-a091-d6b4ebd5511b
+		summarizeBy: none
+		sourceColumn: currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_status
+		dataType: string
+		lineageTag: 5479ef95-1933-463a-994d-7249753e4c19
+		summarizeBy: none
+		sourceColumn: transaction_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_fraud
+		dataType: string
+		lineageTag: d2d3618b-3280-4e1d-92f0-02957c9b5bf9
+		summarizeBy: none
+		sourceColumn: is_fraud
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bffec4f-8a90-4504-81dc-76b1025166d7
+		summarizeBy: sum
+		sourceColumn: risk_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column reference_no
+		dataType: string
+		lineageTag: 4781f669-e1fd-496c-b83f-7f5615adb7de
+		summarizeBy: none
+		sourceColumn: reference_no
+
+		annotation SummarizationSetBy = Automatic
+
+	partition finance_transactions_cleaned = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\kk\Desktop\Data Science\EDA\finance_transactions_cleaned.csv"),[Delimiter=",", Columns=15, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"transaction_id", type text}, {"transaction_date", type date}, {"account_id", type text}, {"customer_id", type text}, {"transaction_type", type text}, {"channel", type text}, {"merchant_category", type text}, {"amount", type number}, {"fee_amount", type number}, {"tax_amount", type number}, {"currency", type text}, {"transaction_status", type text}, {"is_fraud", type text}, {"risk_score", Int64.Type}, {"reference_no", type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"channel", Text.Trim, type text}}),
+				    #"Calculated Absolute Value" = Table.TransformColumns(#"Trimmed Text",{{"amount", Number.Abs, type number}})
+				in
+				    #"Calculated Absolute Value"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

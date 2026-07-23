@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["customers_cleaned","finance_transactions_cleaned","Table"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table customers_cleaned
+ref table DateTableTemplate_ed4b1a72-a1c1-4139-939b-b2bfa9b56570
+ref table LocalDateTable_9d0f5cb7-8c94-4c89-bfc8-7944be989199
+ref table LocalDateTable_2400dc63-bb5b-4e23-8aa7-a312435f32a5
+ref table finance_transactions_cleaned
+ref table 'calendra table'
+ref table LocalDateTable_49f70366-1d88-40ab-b588-b18c758d4a56
+ref table 'Dynamic metrics'
+ref table Table
+
+ref cultureInfo en-US
+

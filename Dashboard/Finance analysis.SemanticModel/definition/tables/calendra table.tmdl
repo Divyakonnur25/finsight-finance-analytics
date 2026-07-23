@@ -1,0 +1,49 @@
+table 'calendra table'
+	lineageTag: 18e8ae71-c50a-4b12-93ab-c61d7639b536
+
+	measure 'Dashboard title' = "Finance Analysis"
+		lineageTag: 47423e9a-0022-41a3-bb47-79a2ef930bed
+
+	column Date
+		formatString: Long Date
+		lineageTag: 08f62fdd-2983-41d6-aaef-c91046cdf647
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: eb69d602-80bf-437f-9144-40309aa82520
+			defaultHierarchy: LocalDateTable_49f70366-1d88-40ab-b588-b18c758d4a56.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year = YEAR('calendra table'[Date])
+		formatString: 0
+		lineageTag: ce962967-6f1c-424e-8a02-ba265067f6aa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column month = FORMAT('calendra table'[Date],"mmm")
+		lineageTag: ec9b5550-7ccc-41bb-9c38-3a815c07a975
+		summarizeBy: none
+		sortByColumn: 'Month No'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month No' = MONTH('calendra table'[Date])
+		formatString: 0
+		lineageTag: 363cc88d-9456-4eb6-a88d-b680ed5a02b6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'calendra table' = calculated
+		mode: import
+		source = CALENDAR(min(finance_transactions_cleaned[transaction_date]),max(finance_transactions_cleaned[transaction_date]))
+
+	annotation PBI_Id = 046eb7571d6e4c31a8587dbf0789ae10
+

@@ -1,0 +1,54 @@
+table 'Dynamic metrics'
+	lineageTag: 7f81359e-f5f9-431a-8906-515214ef1c0b
+
+	column 'Dynamic metrics'
+		lineageTag: ab3c118c-b5ad-44ad-8d7c-61b525e38afc
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Dynamic metrics Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Dynamic metrics Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic metrics Fields'
+		lineageTag: 41857458-5fc6-46c5-a769-e35a1a83e2c0
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Dynamic metrics Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic metrics Order'
+		formatString: 0
+		lineageTag: cf038eff-ef51-41d3-a341-a1332c19f6f4
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Title' = SWITCH('Dynamic metrics'[Dynamic metrics Order],0,"Total Amount",1,"Total Fees",2,"Total Tax",3,"Total Transactions","Other")
+		lineageTag: e69fcee3-1a89-4974-b3f0-6d3f67eff3cc
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic metrics' = calculated
+		mode: import
+		source =
+				{
+				    ("Total Amount", NAMEOF('finance_transactions_cleaned'[Total Amount]), 0),
+				    ("Total Fees", NAMEOF('finance_transactions_cleaned'[Total Fees]), 1),
+				    ("Total Tax", NAMEOF('finance_transactions_cleaned'[Total Tax]), 2),
+				    ("Total Transactions", NAMEOF('finance_transactions_cleaned'[Total Transactions]), 3)
+				}
+
+	annotation PBI_Id = ba362ec92d0841c1a08438dc877634ea
+
